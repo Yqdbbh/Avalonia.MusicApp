@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Avalonia.MusicApp", "Avalonia.MusicApp\Avalonia.MusicApp.csproj", "{5BFD7190-ABED-4292-9CFF-7F595DB058C0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NeteasyCloud.Sdk", "NeteasyCloud.Sdk\NeteasyCloud.Sdk.csproj", "{29C28616-06CD-4BF6-A2BF-1757674B01E1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5BFD7190-ABED-4292-9CFF-7F595DB058C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BFD7190-ABED-4292-9CFF-7F595DB058C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BFD7190-ABED-4292-9CFF-7F595DB058C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BFD7190-ABED-4292-9CFF-7F595DB058C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29C28616-06CD-4BF6-A2BF-1757674B01E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29C28616-06CD-4BF6-A2BF-1757674B01E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29C28616-06CD-4BF6-A2BF-1757674B01E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29C28616-06CD-4BF6-A2BF-1757674B01E1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
