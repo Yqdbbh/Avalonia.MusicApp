@@ -1,9 +1,11 @@
 <Window xmlns="https://github.com/avaloniaui"
+        xmlns:rxui="http://reactiveui.net"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="using:Avalonia.MusicApp.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:views="clr-namespace:Avalonia.MusicApp.Views"
+        xmlns:app="clr-namespace:Avalonia.MusicApp"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="Avalonia.MusicApp.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
@@ -23,36 +25,66 @@
     </Design.DataContext>
 
     <!-- <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/> -->
-    <Panel>
-        <ExperimentalAcrylicBorder IsHitTestVisible="False">
-            <ExperimentalAcrylicBorder.Material>
-                <ExperimentalAcrylicMaterial
-                    BackgroundSource="Digger"
-                    TintColor="Black"
-                    TintOpacity="1"
-                    MaterialOpacity="0.65"
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition  Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Panel Grid.Row="0">
+            <ExperimentalAcrylicBorder IsHitTestVisible="False">
+                <ExperimentalAcrylicBorder.Material>
+                    <ExperimentalAcrylicMaterial
+                        BackgroundSource="Digger"
+                        TintColor="Black"
+                        TintOpacity="1"
+                        MaterialOpacity="0.65"
                     />
-            </ExperimentalAcrylicBorder.Material>
-        </ExperimentalAcrylicBorder>
-        <Panel Margin="40">
-            <Button HorizontalAlignment="Right"
-                    VerticalAlignment="Top"
-                    Command="{Binding BuyMusicCommand}"
-            >
-                <PathIcon Data="{StaticResource store_microsoft_regular}"></PathIcon>
-            </Button>
-            <ItemsControl Margin="0 40 0 0" ItemsSource="{Binding Albums}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                    <WrapPanel/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <views:AlbumView Margin="0 0 20 20 "/>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+                </ExperimentalAcrylicBorder.Material>
+            </ExperimentalAcrylicBorder>
+            <Panel Margin="40">
+                <Button HorizontalAlignment="Right"
+                        VerticalAlignment="Top"
+                        Command="{Binding BuyMusicCommand}"
+                >
+                    <PathIcon Data="{StaticResource store_microsoft_regular}"></PathIcon>
+                </Button>
+                <ItemsControl Margin="0 40 0 0" ItemsSource="{Binding Albums}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <views:AlbumView Margin="0 0 20 20 "/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Panel>
         </Panel>
-    </Panel>
+        <rxui:RoutedViewHost Grid.Row="1"  Router="{Binding Router}">
+            <rxui:RoutedViewHost.DefaultContent>
+                <TextBlock Text="Default Content" 
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"/>
+            </rxui:RoutedViewHost.DefaultContent>
+            <rxui:RoutedViewHost.ViewLocator>
+                <app:AppViewLocator />
+            </rxui:RoutedViewHost.ViewLocator>
+        </rxui:RoutedViewHost>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="15">
+            <StackPanel.Styles>
+                <Style Selector="StackPanel > :is(Control)">
+                    <Setter Property="Margin" Value="2"/>
+                </Style>
+                <Style Selector="StackPanel > TextBlock">
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                </Style>
+            </StackPanel.Styles>
+            <Button Content="Go next" Command="{Binding GoNext}" />
+            <Button Content="Go back" Command="{Binding GoBack}" />
+            <TextBlock Text="{Binding Router.NavigationStack.Count}" />
+        </StackPanel>
+    </Grid>
 </Window>

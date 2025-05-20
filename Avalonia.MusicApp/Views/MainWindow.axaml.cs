@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using Avalonia.Controls;
+using Avalonia.Markup.Xaml;
 using Avalonia.MusicApp.ViewModels;
 using Avalonia.ReactiveUI;
 using ReactiveUI;
@@ -15,6 +16,7 @@ public partial class MainWindow:ReactiveWindow<MainWindowViewModel>
         {
             action(this.ViewModel!.ShowDialog.RegisterHandler(DoShowDialogAsync));
         });
+        AvaloniaXamlLoader.Load(this);
     }
 
     private async Task DoShowDialogAsync(IInteractionContext<MusicStoreViewModel, AlbumViewModel?> interaction)

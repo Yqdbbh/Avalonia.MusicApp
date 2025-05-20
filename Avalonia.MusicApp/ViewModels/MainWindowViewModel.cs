@@ -4,12 +4,13 @@ using System.Reactive.Linq;
 using System.Windows.Input;
 using ReactiveUI;
 using System.Linq;
+using System.Reactive;
 using Avalonia.MusicApp.Models;
 using System.Reactive.Concurrency;
 
 namespace Avalonia.MusicApp.ViewModels;
 
-public class MainWindowViewModel : ViewModelBase
+public class MainWindowViewModel : ReactiveObject,IScreen  // ViewModelBase
 {
 #pragma warning disable CA1822 // Mark members as static
     public string Greeting => "Welcome to Avalonia!";
@@ -31,6 +32,9 @@ public class MainWindowViewModel : ViewModelBase
         });
         ShowDialog = new Interaction<MusicStoreViewModel, AlbumViewModel?>();
         RxApp.MainThreadScheduler.Schedule(LoadAlbums);
+        GoNext = ReactiveCommand.CreateFromObservable(
+            () => Router.Navigate.Execute(new FirstViewModel(this))
+        );
     }
     public ICommand BuyMusicCommand { get; }
     public Interaction<MusicStoreViewModel, AlbumViewModel?> ShowDialog { get; }
@@ -51,4 +55,11 @@ public class MainWindowViewModel : ViewModelBase
         }
     }
 
+    public RoutingState Router { get; } = new RoutingState();
+    
+    // 导航用户到第一个视图模型的命令。
+    public ReactiveCommand<Unit, IRoutableViewModel> GoNext { get; }
+
+    // 导航用户返回的命令。
+    public ReactiveCommand<Unit, IRoutableViewModel> GoBack => Router.NavigateBack;
 }
